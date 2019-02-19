@@ -1,0 +1,23 @@
+<h1>TensorFlowJS Test</h1>
+
+<div class = "images">
+  <img id = "img" [src]="url" height="250">
+  <canvas id = "tensorCanvas"> </canvas>
+</div>
+
+<input type='file' (change)="onSelectFile($event)">
+
+<h2> Predictions:</h2>
+
+<select [(ngModel)]="selectedModel">
+   <option value="" disabled selected>select a model</option>
+   <option *ngFor="let model of models" [value]="model">{{model}}</option>
+ </select>
+
+<button (click) = "onPredictButtonPress(selectedModel)"> Predict </button>
+
+<ul class = "asdasd">
+  <li *ngFor="let prediction of predictions">
+    <span class = "badge"> {{prediction.className}}: </span> {{prediction.probability}}
+  </li>
+</ul> 
