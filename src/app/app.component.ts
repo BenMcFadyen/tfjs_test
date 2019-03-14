@@ -93,11 +93,12 @@ export class AppComponent
 			var canvas = <HTMLCanvasElement> document.getElementById('tensorCanvas')
 
 			let tensor = tf.browser.fromPixels(canvas, number_channels);
-			var reshapedTensor = tf.reshape(tensor, [1, imgSize, imgSize, number_channels]);
-			reshapedTensor = tf.cast(reshapedTensor, 'float32');
+      	  	let normalizationOffset = tf.scalar(127.5);
+            var normalized = tensor.toFloat().sub(normalizationOffset).div(normalizationOffset);
+            var batched = normalized.reshape([1, imgSize, imgSize, 3]);
 
 			//Make and format the predications
-			var output = model.predict(reshapedTensor) as any;
+			var output = model.predict(batched) as any;
 			console.log("Model Output: ")
 			console.log(output)
 
